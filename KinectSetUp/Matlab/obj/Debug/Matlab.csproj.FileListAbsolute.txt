@@ -1,0 +1,8 @@
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlab\bin\Debug\Matlab.exe.config
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlab\bin\Debug\Matlab.exe
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlab\bin\Debug\Matlab.pdb
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlab\obj\Debug\Matlab.csprojResolveAssemblyReference.cache
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlab\obj\Debug\Interop.MLApp.dll
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlab\obj\Debug\Matlab.csproj.ResolveComReference.cache
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlab\obj\Debug\Matlab.exe
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlab\obj\Debug\Matlab.pdb

@@ -1,0 +1,6 @@
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\KinectStatusNotifier\bin\Debug\KinectStatusNotifier.dll
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\KinectStatusNotifier\bin\Debug\KinectStatusNotifier.pdb
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\KinectStatusNotifier\bin\Debug\Microsoft.Kinect.dll
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\KinectStatusNotifier\bin\Debug\Microsoft.Kinect.xml
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\KinectStatusNotifier\obj\Debug\KinectStatusNotifier.dll
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\KinectStatusNotifier\obj\Debug\KinectStatusNotifier.pdb

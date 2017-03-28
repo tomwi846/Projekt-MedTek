@@ -1,0 +1,8 @@
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlabexempel\bin\Debug\Matlabexempel.exe.config
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlabexempel\obj\Debug\Matlabexempel.csprojResolveAssemblyReference.cache
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlabexempel\obj\Debug\Interop.MLApp.dll
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlabexempel\obj\Debug\Matlabexempel.csproj.ResolveComReference.cache
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlabexempel\obj\Debug\MainWindow.g.cs
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlabexempel\obj\Debug\App.g.cs
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlabexempel\obj\Debug\Matlabexempel_MarkupCompile.cache
+C:\Users\tomas\Documents\Visual Studio 2015\temp\KinectSetupDev\Matlabexempel\obj\Debug\Matlabexempel_MarkupCompile.lref
