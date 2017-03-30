@@ -41,10 +41,9 @@ namespace KinectSetupDev
 
         public MainWindow()
         {
-            InitializeComponent();
-            dt.Tick += new EventHandler(dt_Tick);
-            dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
-
+                InitializeComponent();
+                dt.Tick += new EventHandler(dt_Tick);
+                dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
         }
 
         KinectSensor _sensor;
@@ -64,13 +63,34 @@ namespace KinectSetupDev
                     _sensor.SkeletonStream.Enable();
                     _sensor.AllFramesReady += _sensor_AllFramesReady;
 
-                    _sensor2.ColorStream.Enable();
-                    _sensor2.DepthStream.Enable();
-                    _sensor2.SkeletonStream.Enable();
-                    _sensor2.AllFramesReady += _sensor2_AllFramesReady;
+                    if (KinectSensor.KinectSensors.Count > 1)
+                    {
+                        _sensor2 = KinectSensor.KinectSensors[1];
 
-                    _sensor.Start();
-                    _sensor2.Start();
+                        if (_sensor2.Status == KinectStatus.Connected)
+                        {
+                            _sensor2.ColorStream.Enable();
+                            _sensor2.DepthStream.Enable();
+                            _sensor2.SkeletonStream.Enable();
+                            _sensor2.AllFramesReady += _sensor2_AllFramesReady;
+                            try
+                            {
+                                _sensor2.Start();
+                            }
+                            catch(System.IO.IOException)
+                            {
+                                MessageBox.Show("No Kinect sensor connected");
+                            }
+                        }
+                    }
+                    try
+                    {
+                        _sensor.Start();
+                    }
+                    catch(InvalidOperationException)
+                    {
+                        MessageBox.Show("No Kinect sensor connected");
+                    } 
                 }
             }
             else
