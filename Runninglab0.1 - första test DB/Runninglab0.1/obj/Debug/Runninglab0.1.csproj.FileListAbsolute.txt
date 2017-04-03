@@ -1,0 +1,72 @@
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\MainWindow.g.cs
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Window1.g.cs
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Window2.g.cs
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\App.g.cs
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Runninglab0.1_MarkupCompile.cache
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Runninglab0.1_MarkupCompile.lref
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\bin\Debug\Runninglab0.1.exe.config
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\bin\Debug\Runninglab0.1.exe
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\bin\Debug\Runninglab0.1.pdb
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\MainWindow.baml
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Window1.baml
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Window2.baml
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Runninglab0.1.g.resources
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Runninglab0._1.Properties.Resources.resources
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Runninglab0.1.csproj.GenerateResource.Cache
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Runninglab0.1.exe
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Runninglab0.1.pdb
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\Runninglab0.1.csprojResolveAssemblyReference.cache
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\SessionWindow.g.cs
+c:\users\anna birgersson\documents\visual studio 2015\Projects\Runninglab0.1\Runninglab0.1\obj\Debug\SessionWindow.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\bin\Debug\Runninglab0.1.exe.config
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0.1.exe
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0.1.pdb
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\bin\Debug\Runninglab0.1.exe
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\bin\Debug\Runninglab0.1.pdb
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0.1.csprojResolveAssemblyReference.cache
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\MainWindow.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\SessionWindow.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Window1.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Window2.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\App.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0.1_MarkupCompile.cache
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0.1_MarkupCompile.lref
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\MainWindow.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\SessionWindow.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Window1.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Window2.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0.1.g.resources
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0._1.Properties.Resources.resources
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0.1.csproj.GenerateResource.Cache
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\bin\Debug\EntityFramework.dll
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\bin\Debug\EntityFramework.xml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - kopia\Runninglab0.1\obj\Debug\Runninglab0.1_Content.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\bin\Debug\Runninglab0.1.exe.config
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0.1.exe
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0.1.pdb
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0.1.csprojResolveAssemblyReference.cache
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\MainWindow.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\SessionWindow.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Window1.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Window2.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\App.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0.1_Content.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0.1_MarkupCompile.cache
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0.1_MarkupCompile.lref
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\bin\Debug\Runninglab0.1.exe
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\bin\Debug\Runninglab0.1.pdb
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\bin\Debug\EntityFramework.dll
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\bin\Debug\EntityFramework.xml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\MainWindow.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\SessionWindow.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Window1.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Window2.baml
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0.1.g.resources
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0._1.Properties.Resources.resources
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Runninglab0.1.csproj.GenerateResource.Cache
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Edit.g.cs
+C:\Users\Anna Birgersson\Documents\Visual Studio 2015\Projects\Runninglab0.1 - första test DB\Runninglab0.1\obj\Debug\Edit.baml
