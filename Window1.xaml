@@ -1,0 +1,16 @@
+﻿<Window x:Name="window1" x:Class="Runninglab0._1.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Runninglab0._1"
+        mc:Ignorable="d"
+        Title="Running Lab" Height="585.375" Width="901.262">
+    <Grid>
+        <Label x:Name="label" Content="About" HorizontalAlignment="Left" Margin="29,498,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="start_session_button" Content="Start session" HorizontalAlignment="Left" VerticalAlignment="Top" Width="321" Margin="284,123,0,0" Height="60" FontSize="24" FontWeight="Bold" Click="start_session_button_Click_1"/>
+        <Button x:Name="signout_button" Content="Sign out" HorizontalAlignment="Left" Margin="284,369,0,0" VerticalAlignment="Top" Width="321" Height="53" Click="signout_button_Click" FontSize="18" FontWeight="Bold"/>
+        <Button x:Name="edit_button" Content="Edit personal information" HorizontalAlignment="Left" Margin="284,214,0,0" VerticalAlignment="Top" Width="321" Height="52" Click="edit_button_Click" FontWeight="Bold" FontSize="18"/>
+        <Button x:Name="previous_button" Content="Previous result" HorizontalAlignment="Left" Margin="284,291,0,0" VerticalAlignment="Top" Width="321" Height="52" Click="previous_button_click" FontSize="18" FontWeight="Bold"/>
+    </Grid>
+</Window>
