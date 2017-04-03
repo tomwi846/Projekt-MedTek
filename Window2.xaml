@@ -1,0 +1,29 @@
+﻿<Window x:Name="Window1" x:Class="Runninglab0._1.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Runninglab0._1"
+        mc:Ignorable="d"
+        Title="Window2" Height="585.375" Width="901.262">
+    <Grid x:Name="window2">
+        <TextBlock x:Name="welcome_title" Height="170" Margin="329,43,331.667,0" TextWrapping="Wrap" Text="Welcome!" VerticalAlignment="Top" FontSize="48" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title1" Height="67" Margin="376,110,375.667,0" TextWrapping="Wrap" Text="Register:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy1" Height="67" Margin="157,182,594.667,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy2" Height="67" Margin="157,241,594.667,0" TextWrapping="Wrap" Text="Age:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy3" Height="67" Margin="157,297,594.667,0" TextWrapping="Wrap" Text="Weigth:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy4" Height="67" Margin="157,355,594.667,0" TextWrapping="Wrap" Text="Length:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy5" Height="67" Margin="157,411,594.667,0" TextWrapping="Wrap" Text="Gender:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy" Height="67" Margin="720,297,31.667,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Text="kg"/>
+        <TextBlock x:Name="welcome_title_Copy6" Height="67" Margin="720,353,31.667,0" TextWrapping="Wrap" Text="cm" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy7" Height="67" Margin="718,242,33.667,0" TextWrapping="Wrap" Text="years" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy8" Height="67" Margin="281,182,570.667,0" TextWrapping="Wrap" Text="*" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Foreground="Red"/>
+        <TextBlock x:Name="welcome_title_Copy9" Height="67" Margin="329,479,262.667,0" TextWrapping="Wrap" Text="* Required" VerticalAlignment="Top" FontSize="24" Foreground="Red" FontStyle="Italic"/>
+        <Button x:Name="submit_button" Content="Submit" HorizontalAlignment="Left" Height="67" Margin="684,479,0,0" VerticalAlignment="Top" Width="181" Click="button_Click" FontSize="36" FontWeight="Bold"/>
+        <TextBox x:Name="age_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="305,247,0,0" FontSize="18"/>
+        <TextBox x:Name="username_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="305,188,0,0" FontSize="18" TextChanged="username_input_TextChanged"/>
+        <TextBox x:Name="weigth_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="305,303,0,0" FontSize="18"/>
+        <TextBox x:Name="length_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="305,359,0,0" FontSize="18"/>
+        <TextBox x:Name="gender_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="305,417,0,0" FontSize="18"/>
+    </Grid>
+</Window>
