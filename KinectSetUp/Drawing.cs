@@ -138,6 +138,9 @@ namespace KinectSetupDev
         }
 
 
+
+
+
         static private System.Drawing.Point GetJoint(Joint j, Skeleton S, KinectSensor sensor)
         {
             SkeletonPoint Sloc = j.Position;
