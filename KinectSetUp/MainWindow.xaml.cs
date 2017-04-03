@@ -48,13 +48,23 @@ namespace KinectSetupDev
 
         KinectSensor _sensor;
         KinectSensor _sensor2;
+        
+        public string SensorName(KinectSensor sensor)
+        {
+            if (sensor == _sensor)
+            {
+                return "_sensor";
+            }
+            else
+                return "_sensor2";
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (KinectSensor.KinectSensors.Count > 0)
             {
                 _sensor = KinectSensor.KinectSensors[0];
-                _sensor2 = KinectSensor.KinectSensors[1];
+               // _sensor2 = KinectSensor.KinectSensors[1];
 
                 if (_sensor.Status == KinectStatus.Connected)
                 {
@@ -146,6 +156,23 @@ namespace KinectSetupDev
                 }
 
                 Skeleton[] Skeletons = new Skeleton[SFrame.SkeletonArrayLength];
+                slider.Maximum = 80;
+                slider.Minimum = -20;
+                int sliderValue = (int)slider.Value;
+
+                if (sliderValue >= 0 && sliderValue <= 20)
+                {
+                    System.Windows.Media.Color color = new System.Windows.Media.Color();
+                    color = System.Windows.Media.Color.FromRgb(0, 255, 0);
+                    slider.Background = new System.Windows.Media.SolidColorBrush(color);
+                }
+                else
+                {
+                    System.Windows.Media.Color color = new System.Windows.Media.Color();
+                    color = System.Windows.Media.Color.FromRgb(255, 0, 0);
+                    slider.Background = new System.Windows.Media.SolidColorBrush(color);
+                }
+
 
                 SFrame.CopySkeletonDataTo(Skeletons);
                 foreach (Skeleton S in Skeletons)
@@ -155,11 +182,16 @@ namespace KinectSetupDev
                         if (sensor == _sensor)
                         {
                             Drawing.DrawTrackedSkeletonJoint(S.Joints, S, g, sensor);
+                            textBox.Text = S.Joints[JointType.FootRight].Position.Z.ToString();
                         }
                         else
                         {
                             Drawing.DrawSkeletonSidewaySensor(S.Joints, S, g, sensor);
+                            slider.Value = Drawing.calculateAngleBack(S.Joints);
+                            
                         }
+
+
                         //textBox.Text = "Angle: " + Drawing.calculateAngle(S.Joints[JointType.HipLeft], S.Joints[JointType.KneeLeft], S.Joints[JointType.ShoulderLeft]).ToString();
                         //textBox.Text = "Foot apart: " + (100*(System.Math.Round(System.Math.Abs(S.Joints[JointType.HipLeft].Position.Z - S.Joints[JointType.HipRight].Position.Z), 3))).ToString();
                         //if (Drawing.LeftInfrontofRight(S.Joints[JointType.FootLeft], S.Joints[JointType.FootRight]))
@@ -169,9 +201,7 @@ namespace KinectSetupDev
                         //else
                         //{
                         //    textBox.Text = "False";
-                        //}
-
-                        textBox.Text = "Back angle= " + (Drawing.calculateAngleBack(S.Joints, sensor)).ToString();
+                        //}                     
 
                     }
                 }

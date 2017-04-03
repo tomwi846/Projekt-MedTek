@@ -18,7 +18,6 @@ using Microsoft.Kinect.Toolkit;
 using System.Drawing;
 using Microsoft.Samples.Kinect.WpfViewers;
 using KinectStatusNotifier;
-using KinectSetupDev;
 
 
 namespace KinectSetupDev
@@ -109,17 +108,23 @@ namespace KinectSetupDev
 
         }
 
-        static public double calculateAngleBack(JointCollection jointcollection, KinectSensor sensor)
+        static public double calculateAngleBack(JointCollection jointcollection)
         {
-            Vector3D Vector1 = new Vector3D(jointcollection[JointType.HipCenter].Position.X, jointcollection[JointType.HipCenter].Position.Y, jointcollection[JointType.HipCenter].Position.Z);
-            Vector3D Vector2 = new Vector3D(jointcollection[JointType.HipCenter].Position.X, jointcollection[JointType.HipCenter].Position.Y + 1, jointcollection[JointType.HipCenter].Position.Z);
-            Vector3D Vector3 = new Vector3D(jointcollection[JointType.ShoulderCenter].Position.X, jointcollection[JointType.ShoulderCenter].Position.Y, jointcollection[JointType.ShoulderCenter].Position.Z);
+            Vector Vector1 = new Vector(jointcollection[JointType.HipCenter].Position.X, jointcollection[JointType.HipCenter].Position.Y);
+            Vector Vector2 = new Vector(jointcollection[JointType.HipCenter].Position.X, jointcollection[JointType.HipCenter].Position.Y + 5);
+            Vector Vector3 = new Vector(jointcollection[JointType.ShoulderCenter].Position.X, jointcollection[JointType.ShoulderCenter].Position.Y);
 
-            return anglebetweentwovectors(Vector2 - Vector1, Vector3 - Vector1);
+            return anglebetween2Dvectors(Vector3 - Vector1, Vector2 - Vector1);
         }
 
 
+        static private double anglebetween2Dvectors(Vector vectorA, Vector vectorB)
+        {
+            vectorA.Normalize();
+            vectorB.Normalize();
 
+            return Vector.AngleBetween(vectorA, vectorB);
+        }
 
         static private double anglebetweentwovectors(Vector3D vectorA, Vector3D vectorB)
         {
