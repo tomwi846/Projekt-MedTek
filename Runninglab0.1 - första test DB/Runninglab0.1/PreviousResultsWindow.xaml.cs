@@ -54,28 +54,20 @@ namespace Runninglab0._1
                 }
             }
 
-
-
-
-            SqlCommand cmd1 = new SqlCommand("Select * from SessionTable where ID = '" + id + "'", con);
+            SqlCommand cmd1 = new SqlCommand("Select Pulse from SessionTable where ID = '" + id + "'", con);
             SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
             DataTable dt1 = new DataTable();
             da.Fill(dt1);
-            List<string> pulse;
 
-            using (var reader = cmd1.ExecuteReader())
+            List<string> apelsin = new List<string>();
+
+            using (SqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    list.Add(dr[0].ToString());
-
-                    pulse = (reader["Pulse"].ToString());
+                    apelsin.Add(reader.GetString(reader.GetOrdinal("Pulse")));
                 }
             }
-
-            MessageBox.Show()
-
-
 
             SessionBox.Items.Add("hej");
             SessionBox.Items.Add("tja");
