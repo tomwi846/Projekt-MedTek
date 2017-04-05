@@ -8,7 +8,7 @@
         Title="Running Lab" Height="585.375" Width="901.262">
     <Grid HorizontalAlignment="Left" Height="548" Margin="10,0,-6.333,0" VerticalAlignment="Top" Width="891">
         <TextBlock x:Name="Headline" Margin="286,62,286,0" TextWrapping="Wrap" Text="Running Lab" VerticalAlignment="Top" Height="54" Width="319" FontSize="48" FontFamily="Stencil"/>
-        <TextBox x:Name="Input_textbox" HorizontalAlignment="Left" Height="39" Margin="262,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" RenderTransformOrigin="0.494,0.464" FontSize="18" BorderThickness="5"  />
+        <TextBox x:Name="Input_textbox" HorizontalAlignment="Left" Height="39" Margin="262,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" RenderTransformOrigin="0.494,0.464" FontSize="18" BorderThickness="5" />
         <TextBlock x:Name="command_text" HorizontalAlignment="Left" Height="39" Margin="149,261,0,0" TextWrapping="Wrap" Text="User name:" VerticalAlignment="Top" Width="227" FontSize="22"/>
         <TextBlock x:Name="Under_title" HorizontalAlignment="Left" Height="74" Margin="306,187,0,0" TextWrapping="Wrap" Text="Sign in" VerticalAlignment="Top" Width="220" FontSize="36" FontWeight="Bold"/>
         <TextBlock x:Name="Information__text" HorizontalAlignment="Left" Margin="262,305,0,0" TextWrapping="Wrap" Text="not a user? sign up" VerticalAlignment="Top" FontSize="18"/>
