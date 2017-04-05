@@ -61,39 +61,23 @@ namespace Runninglab0._1
                     globalid.idweigth = reader["Weigth"].ToString();
                     globalid.idlength = reader["Length"].ToString();
                     globalid.idgender = reader["Gender"].ToString();
-                    Debug.WriteLine(globalid.idgender);
-
-
                 }
             }
-
-            //
-            //MessageBox.Show(cmd.ToString());
-
 
 
             if (dt.Rows.Count > 0)
             {
                 globalid.idname = username;
-                MessageBox.Show("NAJS");
                 Window1 win1 = new Window1();
                 win1.Show();
                 this.Close();
-                //  skrivit allt nedan
-              //  SqlCommand cmd1 = new SqlCommand("select Age from RunningLab where Username = '" + username + "'", con);
-               // SqlDataReader rdr = cmd1.ExecuteReader();
-               // string hej = rdr["Age"].ToString();
             }
 
             else
             {
                 MessageBox.Show("fel");
             }
-
-
             con.Close();
-
-
         }
 
 

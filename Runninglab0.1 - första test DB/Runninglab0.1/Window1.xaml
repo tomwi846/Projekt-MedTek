@@ -12,5 +12,6 @@
         <Button x:Name="signout_button" Content="Sign out" HorizontalAlignment="Left" Margin="284,369,0,0" VerticalAlignment="Top" Width="321" Height="53" Click="signout_button_Click" FontSize="18" FontWeight="Bold"/>
         <Button x:Name="edit_button" Content="Edit personal information" HorizontalAlignment="Left" Margin="284,214,0,0" VerticalAlignment="Top" Width="321" Height="52" Click="edit_button_Click" FontWeight="Bold" FontSize="18"/>
         <Button x:Name="previous_button" Content="Previous result" HorizontalAlignment="Left" Margin="284,291,0,0" VerticalAlignment="Top" Width="321" Height="52" Click="previous_button_click" FontSize="18" FontWeight="Bold"/>
+        <TextBox x:Name="username_box" HorizontalAlignment="Left" Height="23" Margin="29,28,0,0" TextWrapping="Wrap" Text="user name" VerticalAlignment="Top" Width="120" FontSize="18" FontStyle="Italic" IsReadOnly="True" Loaded="username_box_Loaded" BorderThickness="0"/>
     </Grid>
 </Window>
