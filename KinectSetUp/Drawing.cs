@@ -137,7 +137,18 @@ namespace KinectSetupDev
             return (double)Math.Acos(dotproduct) / Math.PI * 180;
         }
 
-
+        static public void WritePositionToFile(Joint joint, List<string> positions, List<string> timestring)
+        {
+            positions.Add((System.Math.Round(joint.Position.X, 3) * 1000).ToString());
+            //System.IO.FileStream output = new System.IO.FileStream(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Position.txt", System.IO.FileMode.Open);
+            //System.IO.BinaryWriter BWPos = new System.IO.BinaryWriter(output);
+            //for (int i = 0; i <= positions.Count; i++)
+            //{
+            //    BWPos.Write(positions[i]);
+            //}
+            System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Position.txt", positions);
+            System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Times.txt", timestring);
+        }
 
 
 
