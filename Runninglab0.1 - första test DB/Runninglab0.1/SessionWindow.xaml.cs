@@ -46,7 +46,7 @@ namespace Runninglab0._1
                     while (reader.Read())
                     {
                         id = Convert.ToInt32(reader["ID"].ToString());
-                        // MessageBox.Show ( id.ToString() );
+  
                     }
                 }
 

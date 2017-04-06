@@ -41,45 +41,50 @@ namespace Runninglab0._1
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
-            con.Open();
-            string username = Input_textbox.Text;
-           
-            SqlCommand cmd = new SqlCommand("SELECT * from RunningLab where Username = '" + username + "'", con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            using (var reader = cmd.ExecuteReader())
+            if (Input_textbox.Text != "")
             {
-                while (reader.Read())
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                con.Open();
+                string username = Input_textbox.Text;
+
+                SqlCommand cmd = new SqlCommand("SELECT * from RunningLab where Username = '" + username + "'", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                using (var reader = cmd.ExecuteReader())
                 {
-                    //var Global = new globalid();
-                    globalid.idage = reader["Age"].ToString();
-                    globalid.idweigth = reader["Weigth"].ToString();
-                    globalid.idlength = reader["Length"].ToString();
-                    globalid.idgender = reader["Gender"].ToString();
+                    while (reader.Read())
+                    {
+                        //var Global = new globalid();
+                        globalid.idage = reader["Age"].ToString();
+                        globalid.idweigth = reader["Weigth"].ToString();
+                        globalid.idlength = reader["Length"].ToString();
+                        globalid.idgender = reader["Gender"].ToString();
+                    }
                 }
+
+
+                if (dt.Rows.Count > 0)
+                {
+                    globalid.idname = username;
+                    Window1 win1 = new Window1();
+                    win1.Show();
+                    this.Close();
+                }
+
+                else
+                {
+                    MessageBox.Show("You must enter a valid username");
+                }
+                con.Close();
             }
-
-
-            if (dt.Rows.Count > 0)
+                else
             {
-                globalid.idname = username;
-                Window1 win1 = new Window1();
-                win1.Show();
-                this.Close();
+                MessageBox.Show("You need to enter a username");
             }
-
-            else
-            {
-                MessageBox.Show("fel");
-            }
-            con.Close();
         }
-
 
 
         private void here_button_Click(object sender, RoutedEventArgs e)
@@ -89,5 +94,56 @@ namespace Runninglab0._1
             this.Close();
         }
 
+
+        private void Input_textbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                if (Input_textbox.Text != "")
+                {
+                    SqlConnection con = new SqlConnection();
+                    con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                    con.Open();
+                    string username = Input_textbox.Text;
+
+                    SqlCommand cmd = new SqlCommand("SELECT * from RunningLab where Username = '" + username + "'", con);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            //var Global = new globalid();
+                            globalid.idage = reader["Age"].ToString();
+                            globalid.idweigth = reader["Weigth"].ToString();
+                            globalid.idlength = reader["Length"].ToString();
+                            globalid.idgender = reader["Gender"].ToString();
+                        }
+                    }
+
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        globalid.idname = username;
+                        Window1 win1 = new Window1();
+                        win1.Show();
+                        this.Close();
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("You must enter a valid username");
+                    }
+                    con.Close();
+                }
+                else
+                {
+                    MessageBox.Show("You need to enter a username");
+                }
+            }
+        }
     }
 }

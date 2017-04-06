@@ -7,8 +7,11 @@
         mc:Ignorable="d"
         Title="PreviousResultsWindow" Height="585.375" Width="901.262">
     <Grid Loaded="Grid_Loaded">
-        <TextBox x:Name="username_box" HorizontalAlignment="Left" Height="23" Margin="30,26,0,0" TextWrapping="Wrap" Text="username" VerticalAlignment="Top" Width="120" BorderThickness="0" IsReadOnly="True" FontSize="18" FontStyle="Italic"/>
-        <ComboBox x:Name="SectionBox" HorizontalAlignment="Left" Margin="575,111,0,0" VerticalAlignment="Top" Width="222" Height="38"/>
-        <ComboBox x:Name="SessionBox" HorizontalAlignment="Left" Margin="150,111,0,0" VerticalAlignment="Top" Width="222" Height="38" Loaded="SessionBox_Loaded"/>
+        <TextBox x:Name="username_box" HorizontalAlignment="Left" Height="23" Margin="30,26,0,0" TextWrapping="Wrap" Text="username" VerticalAlignment="Top" Width="120" BorderThickness="0" IsReadOnly="True" FontSize="18" FontStyle="Italic" Loaded="username_box_Loaded"/>
+        <ComboBox x:Name="SectionBox" HorizontalAlignment="Left" Margin="486,66,0,0" VerticalAlignment="Top" Width="157" Height="38" Loaded="SectionBox_Loaded"/>
+        <ComboBox x:Name="SessionBox" HorizontalAlignment="Left" Margin="161,66,0,0" VerticalAlignment="Top" Width="146" Height="38" Loaded="SessionBox_Loaded"/>
+        <Button x:Name="button_ok" Content="OK" HorizontalAlignment="Left" Margin="715,66,0,0" VerticalAlignment="Top" Width="84" Click="button_ok_Click" Height="38" FontSize="20"/>
+        <Label x:Name="label" Content="Session:" HorizontalAlignment="Left" Margin="58,67,0,0" VerticalAlignment="Top" Height="38" Width="98" FontSize="20"/>
+        <Label x:Name="label1" Content="Section:" HorizontalAlignment="Left" Margin="384,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.526,-5.949" FontSize="20"/>
     </Grid>
 </Window>
