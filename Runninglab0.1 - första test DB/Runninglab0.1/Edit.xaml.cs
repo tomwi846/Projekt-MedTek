@@ -27,15 +27,6 @@ namespace Runninglab0._1
             InitializeComponent();
         }
 
-      // private static int _idnumber;
-        //public static int idnumber
-        //{
-          //  get
-            //{
-             //   return _idnumber;
-            //}
-        //}
-
     
         private void submit_button_Click(object sender, RoutedEventArgs e)
         {

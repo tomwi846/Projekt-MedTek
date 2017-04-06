@@ -32,7 +32,8 @@ namespace Runninglab0._1
             username_box.Text = globalid.idname;
         }
 
-
+        List<string> pulslist = new List<string>();
+       // private object username_input;
 
         private void SessionBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -55,24 +56,25 @@ namespace Runninglab0._1
             }
 
             SqlCommand cmd1 = new SqlCommand("Select Pulse from SessionTable where ID = '" + id + "'", con);
-            SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
-            DataTable dt1 = new DataTable();
-            da.Fill(dt1);
 
-            List<string> apelsin = new List<string>();
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            
+            
+            using (SqlDataReader reader = cmd1.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    apelsin.Add(reader.GetString(reader.GetOrdinal("Pulse")));
+                    pulslist.Add(reader.GetString(0));
                 }
             }
 
-            SessionBox.Items.Add("hej");
-            SessionBox.Items.Add("tja");
-            SessionBox.Items.Add("madde");
-            SessionBox.Items.Add("anna");
+            SqlCommand cmd2 = new SqlCommand("Select COUNT (ID) from SessionTable where ID = '" + id + "'", con);
+            Int32 count = (Int32) cmd2.ExecuteScalar(); // count elements in database with specific ID 
+
+            for (int i = 1; i <= count; i++)
+            {
+                SessionBox.Items.Add(i.ToString());
+
+            }
         }
 
         private void SectionBox_Loaded(object sender, RoutedEventArgs e)
@@ -82,6 +84,19 @@ namespace Runninglab0._1
             SectionBox.Items.Add("Improvments");
         }
 
+        private void button_ok_Click(object sender, RoutedEventArgs e)
+        {
+            if (SectionBox.Text == "Pulse")
+            {
+                int sessionnumber = Convert.ToInt32(SessionBox.Text);
+                string puls = pulslist[sessionnumber - 1].ToString();
+                MessageBox.Show(puls);
+            }
+        }
 
+        private void username_box_Loaded(object sender, RoutedEventArgs e)
+        {
+            username_box.Text = globalid.idname;
+        }
     }
 }
