@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Runninglab0._1.MainWindow;
 
 namespace Runninglab0._1
 {
@@ -48,7 +49,14 @@ namespace Runninglab0._1
 
         private void previous_button_click(object sender, RoutedEventArgs e)
         {
+            PreviousResultsWindow prewin = new PreviousResultsWindow();
+            prewin.Show();
+            this.Close();
+        }
 
+        private void username_box_Loaded(object sender, RoutedEventArgs e)
+        {
+            username_box.Text = globalid.idname;
         }
     }
 }

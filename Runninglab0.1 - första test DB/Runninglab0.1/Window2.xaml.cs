@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using static Runninglab0._1.MainWindow;
 
 namespace Runninglab0._1
 {
@@ -38,9 +39,9 @@ namespace Runninglab0._1
             string length = length_input.Text;
             string gender = gender_input.Text;
             SqlCommand cmd = new SqlCommand("Insert into RunningLab (Username, Age, weigth, length, gender) values ('" + username + "','" + age + "', '" + weigth + "', '" + length + "', '" + gender + "')", con);
-
             cmd.CommandType = CommandType.Text;
             cmd.ExecuteNonQuery();
+
             con.Close();
 
             //SqlDataAdapter da = new SqlDataAdapter(cmd);
