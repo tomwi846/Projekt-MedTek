@@ -32,7 +32,8 @@ namespace Runninglab0._1
             if (end_button.Content.ToString() == "START")
             {
                 SqlConnection con = new SqlConnection();
-                con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                //con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
                 con.Open();
 
                 SqlCommand cmd = new SqlCommand("Select ID from RunningLab where Username = '" + globalid.idname + "'", con);
@@ -46,7 +47,6 @@ namespace Runninglab0._1
                     while (reader.Read())
                     {
                         id = Convert.ToInt32(reader["ID"].ToString());
-  
                     }
                 }
 

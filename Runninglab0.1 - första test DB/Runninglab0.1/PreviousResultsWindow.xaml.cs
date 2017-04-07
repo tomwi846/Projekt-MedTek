@@ -38,7 +38,8 @@ namespace Runninglab0._1
         private void SessionBox_Loaded(object sender, RoutedEventArgs e)
         {
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+           // con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+            con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
             con.Open();
 
             int id = 0;
@@ -69,11 +70,16 @@ namespace Runninglab0._1
 
             SqlCommand cmd2 = new SqlCommand("Select COUNT (ID) from SessionTable where ID = '" + id + "'", con);
             Int32 count = (Int32) cmd2.ExecuteScalar(); // count elements in database with specific ID 
-
-            for (int i = 1; i <= count; i++)
+            if (count == 0)
             {
-                SessionBox.Items.Add(i.ToString());
-
+                SessionBox.Items.Add("No sessions available");
+            }
+            else
+            {
+                for (int i = 1; i <= count; i++)
+                {
+                    SessionBox.Items.Add(i.ToString());
+                }
             }
         }
 
@@ -86,17 +92,36 @@ namespace Runninglab0._1
 
         private void button_ok_Click(object sender, RoutedEventArgs e)
         {
-            if (SectionBox.Text == "Pulse")
+            if (SessionBox.Text == "No sessions available")
             {
-                int sessionnumber = Convert.ToInt32(SessionBox.Text);
-                string puls = pulslist[sessionnumber - 1].ToString();
-                MessageBox.Show(puls);
+                Window1 mainwin = new Window1();
+                mainwin.Show();
+                this.Close();
+            }
+            else
+            {
+                if (SectionBox.Text == "Pulse")
+                {
+                    
+                    int sessionnumber = Convert.ToInt32(SessionBox.Text);
+                    {
+                        string puls = pulslist[sessionnumber - 1].ToString();
+                        MessageBox.Show(puls);
+                    }
+                }
             }
         }
 
         private void username_box_Loaded(object sender, RoutedEventArgs e)
         {
             username_box.Text = globalid.idname;
+        }
+
+        private void button_back_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 mainwin = new Window1();
+            mainwin.Show();
+            this.Close();
         }
     }
 }
