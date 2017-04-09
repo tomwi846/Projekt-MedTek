@@ -150,6 +150,21 @@ namespace KinectSetupDev
             System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Times.txt", timestring);
         }
 
+        static public void WriteAngleToFile(Joint j1, Joint j2, Joint j3, Joint j4, List<string> kneeup, List<string> heelkick)
+        {
+            if (LeftInfrontofRight(j2, j4))
+            {
+                kneeup.Add(System.Math.Round(calculateAngle(j1, j2, j3)).ToString());
+                System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Kneeup.txt", kneeup);
+            }
+            else
+            {
+                heelkick.Add(System.Math.Round(calculateAngle(j1, j2, j3)).ToString());
+                System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Heelkick.txt", heelkick);
+            }
+
+        }
+
 
 
         static private System.Drawing.Point GetJoint(Joint j, Skeleton S, KinectSensor sensor)
