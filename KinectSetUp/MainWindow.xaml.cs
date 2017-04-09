@@ -54,6 +54,10 @@ namespace KinectSetupDev
 
         List<string> time = new List<string>();
 
+        List<string> kneeup = new List<string>();
+
+        List<string> heelkick = new List<string>();
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (KinectSensor.KinectSensors.Count > 0)
@@ -194,13 +198,14 @@ namespace KinectSetupDev
                         {
                             Drawing.DrawSkeletonSidewaySensor(S.Joints, S, g, sensor);
                             slider.Value = Drawing.calculateAngleBack(S.Joints);
-                            textBox.Text = S.Joints[JointType.FootLeft].Position.X.ToString();
+                           // textBox.Text = S.Joints[JointType.FootLeft].Position.X.ToString();
 
                             if ((0.1f < S.Joints[JointType.FootLeft].Position.X || S.Joints[JointType.FootLeft].Position.X < -0.15f))
                             {
                                 time.Add(MilliSeconds.ToString());
                                 Drawing.WritePositionToFile(S.Joints[JointType.FootLeft], FootPositions, time);
                             }
+                            Drawing.WriteAngleToFile(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft], S.Joints[JointType.AnkleRight], kneeup, heelkick);
                         }
 
                         //textBox.Text = "Angle: " + Drawing.calculateAngle(S.Joints[JointType.HipLeft], S.Joints[JointType.KneeLeft], S.Joints[JointType.ShoulderLeft]).ToString();
@@ -212,7 +217,9 @@ namespace KinectSetupDev
                         //else
                         //{
                         //    textBox.Text = "False";
-                        //}                     
+                        //}
+                        
+                        //textBox.Text ="Knee angle: " + Drawing.calculateAngle(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft]).ToString();
 
                     }
                 }
