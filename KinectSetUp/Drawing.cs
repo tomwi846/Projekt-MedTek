@@ -137,6 +137,35 @@ namespace KinectSetupDev
             return (double)Math.Acos(dotproduct) / Math.PI * 180;
         }
 
+        static public void WritePositionToFile(Joint joint, List<string> positions, List<string> timestring)
+        {
+            positions.Add((System.Math.Round(joint.Position.X, 3) * 1000).ToString());
+            //System.IO.FileStream output = new System.IO.FileStream(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Position.txt", System.IO.FileMode.Open);
+            //System.IO.BinaryWriter BWPos = new System.IO.BinaryWriter(output);
+            //for (int i = 0; i <= positions.Count; i++)
+            //{
+            //    BWPos.Write(positions[i]);
+            //}
+            System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Position.txt", positions);
+            System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Times.txt", timestring);
+        }
+
+        static public void WriteAngleToFile(Joint j1, Joint j2, Joint j3, Joint j4, List<string> kneeup, List<string> heelkick)
+        {
+            if (LeftInfrontofRight(j2, j4))
+            {
+                kneeup.Add(System.Math.Round(calculateAngle(j1, j2, j3)).ToString());
+                System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Kneeup.txt", kneeup);
+            }
+            else
+            {
+                heelkick.Add(System.Math.Round(calculateAngle(j1, j2, j3)).ToString());
+                System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Heelkick.txt", heelkick);
+            }
+
+        }
+
+
 
         static private System.Drawing.Point GetJoint(Joint j, Skeleton S, KinectSensor sensor)
         {

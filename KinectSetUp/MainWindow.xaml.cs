@@ -38,6 +38,7 @@ namespace KinectSetupDev
         DispatcherTimer dt = new DispatcherTimer();
         Stopwatch sw = new Stopwatch();
         string currentTime = string.Empty;
+        long MilliSeconds = 0;
 
         public MainWindow()
         {
@@ -48,23 +49,20 @@ namespace KinectSetupDev
 
         KinectSensor _sensor;
         KinectSensor _sensor2;
-        
-        public string SensorName(KinectSensor sensor)
-        {
-            if (sensor == _sensor)
-            {
-                return "_sensor";
-            }
-            else
-                return "_sensor2";
-        }
+
+        List<string> FootPositions = new List<string>();
+
+        List<string> time = new List<string>();
+
+        List<string> kneeup = new List<string>();
+
+        List<string> heelkick = new List<string>();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (KinectSensor.KinectSensors.Count > 0)
             {
                 _sensor = KinectSensor.KinectSensors[0];
-               // _sensor2 = KinectSensor.KinectSensors[1];
 
                 if (_sensor.Status == KinectStatus.Connected)
                 {
@@ -103,12 +101,23 @@ namespace KinectSetupDev
                     } 
                 }
             }
+
             else
             {
                 //Add good exception here, e.g. error message box saying no kinect connected
             }
+            sw.Start();
+            dt.Start();
+            //if (sw.IsRunning)
+            //{
+            //    TimeSpan ts = sw.Elapsed;
+            //    currentTime = String.Format("{0:00}:{1:00}:{2:00}",
+            //    ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            //    clockTextbox.Text = "Time: " + currentTime;
+            //    MilliSeconds = sw.ElapsedMilliseconds;
+            //}
 
-           // this.notifier.Sensors = KinectSensor.KinectSensors;
+            // this.notifier.Sensors = KinectSensor.KinectSensors;
         }
 
         void dt_Tick(object sender, EventArgs e)
@@ -119,6 +128,7 @@ namespace KinectSetupDev
                 currentTime = String.Format("{0:00}:{1:00}:{2:00}",
                 ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
                 clockTextbox.Text = "Time: " + currentTime;
+                MilliSeconds = sw.ElapsedMilliseconds;
             }
         }
 
@@ -182,15 +192,21 @@ namespace KinectSetupDev
                         if (sensor == _sensor)
                         {
                             Drawing.DrawTrackedSkeletonJoint(S.Joints, S, g, sensor);
-                            textBox.Text = S.Joints[JointType.FootRight].Position.Z.ToString();
+                            
                         }
                         else
                         {
                             Drawing.DrawSkeletonSidewaySensor(S.Joints, S, g, sensor);
                             slider.Value = Drawing.calculateAngleBack(S.Joints);
-                            
-                        }
+                           // textBox.Text = S.Joints[JointType.FootLeft].Position.X.ToString();
 
+                            if ((0.1f < S.Joints[JointType.FootLeft].Position.X || S.Joints[JointType.FootLeft].Position.X < -0.15f))
+                            {
+                                time.Add(MilliSeconds.ToString());
+                                Drawing.WritePositionToFile(S.Joints[JointType.FootLeft], FootPositions, time);
+                            }
+                            Drawing.WriteAngleToFile(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft], S.Joints[JointType.AnkleRight], kneeup, heelkick);
+                        }
 
                         //textBox.Text = "Angle: " + Drawing.calculateAngle(S.Joints[JointType.HipLeft], S.Joints[JointType.KneeLeft], S.Joints[JointType.ShoulderLeft]).ToString();
                         //textBox.Text = "Foot apart: " + (100*(System.Math.Round(System.Math.Abs(S.Joints[JointType.HipLeft].Position.Z - S.Joints[JointType.HipRight].Position.Z), 3))).ToString();
@@ -201,7 +217,9 @@ namespace KinectSetupDev
                         //else
                         //{
                         //    textBox.Text = "False";
-                        //}                     
+                        //}
+                        
+                        //textBox.Text ="Knee angle: " + Drawing.calculateAngle(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft]).ToString();
 
                     }
                 }
@@ -236,6 +254,7 @@ namespace KinectSetupDev
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             StopKinect(_sensor);
+            sw.Stop();
         }
     }   
 }

@@ -1,0 +1,26 @@
+﻿<Window x:Class="Runninglab0._1.Edit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Runninglab0._1"
+        mc:Ignorable="d"
+        Title="Edit" Height="585.375" Width="901.262">
+    <Grid>
+        <TextBlock x:Name="welcome_title" Height="170" Margin="244,79,165,0" TextWrapping="Wrap" Text="Edit personal information" VerticalAlignment="Top" FontSize="36" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy1" Height="67" Margin="121,182,631,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy2" Height="67" Margin="121,241,631,0" TextWrapping="Wrap" Text="Age:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy3" Height="67" Margin="121,297,631,0" TextWrapping="Wrap" Text="Weigth:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy4" Height="67" Margin="121,355,631,0" TextWrapping="Wrap" Text="Length:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy5" Height="67" Margin="121,411,631,0" TextWrapping="Wrap" Text="Gender:" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy" Height="67" Margin="684,297,68,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Text="kg"/>
+        <TextBlock x:Name="welcome_title_Copy6" Height="67" Margin="684,353,68,0" TextWrapping="Wrap" Text="cm" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="welcome_title_Copy7" Height="67" Margin="682,242,70,0" TextWrapping="Wrap" Text="years" VerticalAlignment="Top" FontSize="24" FontWeight="Bold"/>
+        <Button x:Name="submit_button" Content="Submit" HorizontalAlignment="Left" Height="52" Margin="720,474,0,0" VerticalAlignment="Top" Width="118" Click="submit_button_Click" FontSize="22" FontWeight="Bold"/>
+        <TextBox x:Name="age_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="269,247,0,0" FontSize="18" Loaded="age_input_Loaded"/>
+        <TextBox x:Name="weigth_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="269,303,0,0" FontSize="18" Loaded="weigth_input_Loaded"/>
+        <TextBox x:Name="length_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="269,359,0,0" FontSize="18" Loaded="length_input_Loaded"/>
+        <TextBox x:Name="gender_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="269,417,0,0" FontSize="18" Loaded="gender_input_Loaded"/>
+        <TextBox x:Name="username_input" HorizontalAlignment="Left" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Width="406" Margin="269,186,0,0" FontSize="18" Loaded="username_input_Loaded" IsReadOnly="True"/>
+    </Grid>
+</Window>
