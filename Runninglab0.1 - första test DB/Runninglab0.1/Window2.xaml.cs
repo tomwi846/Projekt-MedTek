@@ -31,7 +31,8 @@ namespace Runninglab0._1
         {
 
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+            //con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+            con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
             con.Open();
             string username = username_input.Text;
             string age = age_input.Text;
@@ -44,18 +45,17 @@ namespace Runninglab0._1
 
             con.Close();
 
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-       //     DataTable dt = new DataTable();
-           // da.Fill(dt);
-
             MainWindow mainwin = new MainWindow();
             mainwin.Show();
             this.Close();
         }
 
-        private void username_input_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
+        private void button_back_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainwin = new MainWindow();
+            mainwin.Show();
+            this.Close();
         }
     }
 }

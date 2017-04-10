@@ -37,7 +37,10 @@ namespace Runninglab0._1
             string gender = gender_input.Text;
  
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+            //Annas dator:
+            //con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+            //Pers dator:
+            con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
             SqlCommand cmd = new SqlCommand("update RunningLab set Age = '" + age + "', Weigth='"+weigth+"', Length = '" + length + "', Gender = '" + gender + "'  where Username = '" + id + "'", con);
 
             con.Open();

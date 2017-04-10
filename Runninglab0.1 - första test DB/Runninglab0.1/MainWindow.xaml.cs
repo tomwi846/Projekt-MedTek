@@ -44,7 +44,8 @@ namespace Runninglab0._1
             if (Input_textbox.Text != "")
             {
                 SqlConnection con = new SqlConnection();
-                con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+               // con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
                 con.Open();
                 string username = Input_textbox.Text;
 
@@ -103,7 +104,8 @@ namespace Runninglab0._1
                 if (Input_textbox.Text != "")
                 {
                     SqlConnection con = new SqlConnection();
-                    con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                    //con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                    con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
                     con.Open();
                     string username = Input_textbox.Text;
 
