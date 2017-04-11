@@ -16,6 +16,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Data.Common;
 using System.Diagnostics;
+using OxyPlot;
 
 namespace Runninglab0._1
 {
@@ -36,6 +37,7 @@ namespace Runninglab0._1
             public static string idweigth;
             public static string idlength;
             public static string idgender;
+            public static List<DataPoint> plotlist=new List<DataPoint>();  // LAGT TILL
         }
 
 
@@ -44,8 +46,8 @@ namespace Runninglab0._1
             if (Input_textbox.Text != "")
             {
                 SqlConnection con = new SqlConnection();
-               // con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
-                con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
+                con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+              //  con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
                 con.Open();
                 string username = Input_textbox.Text;
 
@@ -104,8 +106,8 @@ namespace Runninglab0._1
                 if (Input_textbox.Text != "")
                 {
                     SqlConnection con = new SqlConnection();
-                    //con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
-                    con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
+                    con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                    // con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True";
                     con.Open();
                     string username = Input_textbox.Text;
 
