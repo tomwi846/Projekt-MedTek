@@ -38,6 +38,8 @@ namespace KinectSetupDev
         //Create a pen for drawing red lines when error occurs in the running. 
         static private readonly System.Drawing.Pen errorBonePen = new System.Drawing.Pen(System.Drawing.Color.Red, 6);
 
+        //Function for rendering a bone between two tracked joints. Depending on both joints tracked or inferred it will draw
+        //the bone with different parameters. 
         static private void DrawBone(Joint j1, Joint j2, Skeleton S, Graphics g, KinectSensor sensor)
         {
 

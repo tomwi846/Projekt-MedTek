@@ -33,14 +33,18 @@ namespace KinectSetupDev
     {
         // Creating important types and variables for future use. 
 
-        DispatcherTimer dt = new DispatcherTimer();
-        Stopwatch sw = new Stopwatch();
-        string currentTime = string.Empty;
-        long MilliSeconds = 0;
+        DispatcherTimer dt = new DispatcherTimer(); //
+        Stopwatch sw = new Stopwatch(); //stopwatch for handling of time
+        string currentTime = string.Empty; //string for storing the current time in stringformat
+        long MilliSeconds = 0; //int for how long it has been running (in milliseconds)
 
+        //Expecting to connected sensor so we create to variables for handling
+        //of sensor events. 
         KinectSensor _sensor;
         KinectSensor _sensor2;
 
+        //------------Important lists for storing important values for the program, e.g. -------------
+        // FootPositions stores values of the foots postion.
         List<string> FootPositions = new List<string>();
 
         List<string> time = new List<string>();
@@ -48,6 +52,11 @@ namespace KinectSetupDev
         List<string> kneeup = new List<string>();
 
         List<string> heelkick = new List<string>();
+
+        //-------------------End of important lists----------------------------
+
+        //How many connected sensors.
+        int numberOfConnectedSensors = KinectSensor.KinectSensors.Count; 
 
         public MainWindow()
         {
@@ -58,7 +67,7 @@ namespace KinectSetupDev
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (KinectSensor.KinectSensors.Count > 0)
+            if (numberOfConnectedSensors > 0)
             {
                 _sensor = KinectSensor.KinectSensors[0];
 
@@ -221,7 +230,14 @@ namespace KinectSetupDev
                     {
                         if (sensor == _sensor)
                         {
-                            Drawing.DrawTrackedSkeletonJoint(S.Joints, S, g, sensor);  
+                            Drawing.DrawTrackedSkeletonJoint(S.Joints, S, g, sensor);
+
+                            if ((0.1f < S.Joints[JointType.FootLeft].Position.X || S.Joints[JointType.FootLeft].Position.X < -0.15f))
+                            {
+                                time.Add(MilliSeconds.ToString());
+                                Drawing.WritePositionToFile(S.Joints[JointType.FootLeft], FootPositions, time);
+                            }
+                            Drawing.WriteAngleToFile(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft], S.Joints[JointType.AnkleRight], kneeup, heelkick);
                         }
                         else
                         {
@@ -288,10 +304,19 @@ namespace KinectSetupDev
             }
         }
         
+        //Stops both of the sensors and the dispatchertimer aswell as the stopwatch when the window is closing. 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             StopKinect(_sensor);
-            sw.Stop();
+            if (numberOfConnectedSensors > 1)
+            {
+                StopKinect(_sensor2);
+            }
+            if (sw.IsRunning && dt.IsEnabled)
+            {
+                sw.Stop();
+                dt.Stop();
+            }   
         }
     }   
 }

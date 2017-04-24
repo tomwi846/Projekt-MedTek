@@ -26,7 +26,7 @@ namespace Matlabexempel
             MLApp.MLApp matlab = new MLApp.MLApp();
 
             // Change to the directory where the function is located 
-            matlab.Execute(@"cd C:\Användare\tomas\Dokument\Visual Studio 2015\temp\KinectSetupDev\myfunction");
+            matlab.Execute(@" cd 'C: \Users\tomas\Documents\GitHub\Projekt - MedTek\KinectSetUp'");
 
             // Define the output 
             object result = null;
