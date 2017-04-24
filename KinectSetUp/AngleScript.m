@@ -14,6 +14,15 @@ plot(x1, Kneeup)
 subplot(1,2,2)
 plot(x2,Heelkick)
 
+Knee = mean(Kneeup)
+Heel = mean(Heelkick)
+
+Kneemin = min(Kneeup)
+Heelmin = min(Heelkick)
+
+Kneemax = max(Kneeup)
+Heelmax = max(Heelkick)
+
 % findminima = -1 .* Position;
 % mins = findpeaks(findminima, x, 'MinPeakDistance', 15);
 % 

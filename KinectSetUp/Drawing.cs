@@ -16,8 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Kinect;
 using Microsoft.Kinect.Toolkit;
 using System.Drawing;
-using Microsoft.Samples.Kinect.WpfViewers;
-using KinectStatusNotifier;
+//using Microsoft.Samples.Kinect.WpfViewers;
 
 
 namespace KinectSetupDev
@@ -36,8 +35,11 @@ namespace KinectSetupDev
         //Create pen for drawing tracked bones
         static private readonly System.Drawing.Pen trackedBonePen = new System.Drawing.Pen(System.Drawing.Color.Green, 6);
 
+        //Create a pen for drawing red lines when error occurs in the running. 
         static private readonly System.Drawing.Pen errorBonePen = new System.Drawing.Pen(System.Drawing.Color.Red, 6);
 
+        //Function for rendering a bone between two tracked joints. Depending on both joints tracked or inferred it will draw
+        //the bone with different parameters. 
         static private void DrawBone(Joint j1, Joint j2, Skeleton S, Graphics g, KinectSensor sensor)
         {
 
@@ -157,15 +159,12 @@ namespace KinectSetupDev
                 kneeup.Add(System.Math.Round(calculateAngle(j1, j2, j3)).ToString());
                 System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Kneeup.txt", kneeup);
             }
-            else
+            else if(!LeftInfrontofRight(j2,j4))
             {
                 heelkick.Add(System.Math.Round(calculateAngle(j1, j2, j3)).ToString());
                 System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Heelkick.txt", heelkick);
             }
-
         }
-
-
 
         static private System.Drawing.Point GetJoint(Joint j, Skeleton S, KinectSensor sensor)
         {

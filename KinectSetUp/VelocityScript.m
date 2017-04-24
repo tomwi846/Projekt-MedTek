@@ -28,18 +28,18 @@ filteredmins = findpeaks(filteredfindminima, x, 'MinPeakDistance', 15);
 
 filteredmins = -1 .* filteredmins;  
 
-medel1 = mean(peaks)
-medel2 = mean(mins)
+medel1 = mean(peaks);
+medel2 = mean(mins);
 
-medel3 = mean(filteredpeaks)
-medel4 = mean(filteredmins)
+medel3 = mean(filteredpeaks);
+medel4 = mean(filteredmins);
 
 p = max(filteredpeaks);
 q = min(filteredmins);
 
-sl = (medel3 - medel4)/1000;  %ta fram steglängd i meter.
+sl = (p - q)/1000;  %ta fram steglängd i meter.
 
-k = length(filteredpeaks)*sl; %totala sträckan sprungit/gått
+k = 2*length(filteredpeaks)*sl; %totala sträckan sprungit/gått
 
 ms = k /((Times(length(Times)) - Times(1))/1000); % meter per sekund
 

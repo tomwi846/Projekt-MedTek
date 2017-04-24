@@ -19,8 +19,7 @@ using System.Windows.Threading;
 using Microsoft.Kinect;
 using Microsoft.Kinect.Toolkit;
 using System.Drawing;
-using Microsoft.Samples.Kinect.WpfViewers;
-using KinectStatusNotifier;
+//using Microsoft.Samples.Kinect.WpfViewers;
 
 
 namespace KinectSetupDev
@@ -32,24 +31,20 @@ namespace KinectSetupDev
 
     public partial class MainWindow : Window
     {
-        
-        private StatusNotifier notifier = new StatusNotifier();
+        // Creating important types and variables for future use. 
 
-        DispatcherTimer dt = new DispatcherTimer();
-        Stopwatch sw = new Stopwatch();
-        string currentTime = string.Empty;
-        long MilliSeconds = 0;
+        DispatcherTimer dt = new DispatcherTimer(); //
+        Stopwatch sw = new Stopwatch(); //stopwatch for handling of time
+        string currentTime = string.Empty; //string for storing the current time in stringformat
+        long MilliSeconds = 0; //int for how long it has been running (in milliseconds)
 
-        public MainWindow()
-        {
-                InitializeComponent();
-                dt.Tick += new EventHandler(dt_Tick);
-                dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
-        }
-
+        //Expecting to connected sensor so we create to variables for handling
+        //of sensor events. 
         KinectSensor _sensor;
         KinectSensor _sensor2;
 
+        //------------Important lists for storing important values for the program, e.g. -------------
+        // FootPositions stores values of the foots postion.
         List<string> FootPositions = new List<string>();
 
         List<string> time = new List<string>();
@@ -58,9 +53,21 @@ namespace KinectSetupDev
 
         List<string> heelkick = new List<string>();
 
+        //-------------------End of important lists----------------------------
+
+        //How many connected sensors.
+        int numberOfConnectedSensors = KinectSensor.KinectSensors.Count; 
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            dt.Tick += new EventHandler(dt_Tick);
+            dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (KinectSensor.KinectSensors.Count > 0)
+            if (numberOfConnectedSensors > 0)
             {
                 _sensor = KinectSensor.KinectSensors[0];
 
@@ -96,7 +103,7 @@ namespace KinectSetupDev
                         _sensor.Start();
                     }
                     catch(InvalidOperationException)
-                    {
+                    { 
                         MessageBox.Show("No Kinect sensor connected");
                     } 
                 }
@@ -104,10 +111,16 @@ namespace KinectSetupDev
 
             else
             {
+                Close(); //If no sensor connected Application i closed. Following up with a messagebox stating what's wrong. 
+                MessageBox.Show("No kinect sensor kinected");
                 //Add good exception here, e.g. error message box saying no kinect connected
             }
+
+            //Start both dispatchertimer and stopwatch.
             sw.Start();
             dt.Start();
+
+
             //if (sw.IsRunning)
             //{
             //    TimeSpan ts = sw.Elapsed;
@@ -116,8 +129,6 @@ namespace KinectSetupDev
             //    clockTextbox.Text = "Time: " + currentTime;
             //    MilliSeconds = sw.ElapsedMilliseconds;
             //}
-
-            // this.notifier.Sensors = KinectSensor.KinectSensors;
         }
 
         void dt_Tick(object sender, EventArgs e)
@@ -143,8 +154,34 @@ namespace KinectSetupDev
             if (sw.IsRunning)
             {
                 sw.Stop();
+                List<int> k = kneeup.Select(int.Parse).ToList();
+                List<int> h = heelkick.Select(int.Parse).ToList();
+                int[] karray = k.ToArray();
+                int[] harray = h.ToArray();
+
+                double ktot = 0;
+                double htot = 0;
+
+                foreach (int s in karray)
+                {
+                    ktot += s;
+                }
+
+                foreach (int q in harray)
+                {
+                    htot += q;
+                }
+
+                double kaverage = ktot / karray.Length;
+                double haverage = htot / harray.Length;
+
+                textBox.Text = kaverage.ToString() + " " + haverage.ToString();
+
             }
         }
+
+        //function for event-handling. Every data-update from the sensor is handled in this function. 
+        //If there is any data it copies it to a bitmap making it possible to overwrite the Image-control in XAML.
 
         public void framesready(object sender, AllFramesReadyEventArgs e, System.Windows.Controls.Image image, KinectSensor sensor)
         {
@@ -160,6 +197,8 @@ namespace KinectSetupDev
                 Graphics g = Graphics.FromImage(bmap);
 
                 SkeletonFrame SFrame = e.OpenSkeletonFrame();
+
+                //If the frame would be null you can't do anything. 
                 if (SFrame == null)
                 {
                     return;
@@ -192,7 +231,13 @@ namespace KinectSetupDev
                         if (sensor == _sensor)
                         {
                             Drawing.DrawTrackedSkeletonJoint(S.Joints, S, g, sensor);
-                            
+
+                            if ((0.1f < S.Joints[JointType.FootLeft].Position.X || S.Joints[JointType.FootLeft].Position.X < -0.15f))
+                            {
+                                time.Add(MilliSeconds.ToString());
+                                Drawing.WritePositionToFile(S.Joints[JointType.FootLeft], FootPositions, time);
+                            }
+                            Drawing.WriteAngleToFile(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft], S.Joints[JointType.AnkleRight], kneeup, heelkick);
                         }
                         else
                         {
@@ -208,6 +253,8 @@ namespace KinectSetupDev
                             Drawing.WriteAngleToFile(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft], S.Joints[JointType.AnkleRight], kneeup, heelkick);
                         }
 
+                        //----------------MASSA TESTER AV OLIKA FUNKTIONER--------------------
+
                         //textBox.Text = "Angle: " + Drawing.calculateAngle(S.Joints[JointType.HipLeft], S.Joints[JointType.KneeLeft], S.Joints[JointType.ShoulderLeft]).ToString();
                         //textBox.Text = "Foot apart: " + (100*(System.Math.Round(System.Math.Abs(S.Joints[JointType.HipLeft].Position.Z - S.Joints[JointType.HipRight].Position.Z), 3))).ToString();
                         //if (Drawing.LeftInfrontofRight(S.Joints[JointType.FootLeft], S.Joints[JointType.FootRight]))
@@ -221,14 +268,18 @@ namespace KinectSetupDev
                         
                         //textBox.Text ="Knee angle: " + Drawing.calculateAngle(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft]).ToString();
 
+                        // ------------------------SLUT PÅ TEST--------------------------------
                     }
                 }
 
+                //Change the source of the Image-instance in the XAML-file to the current frame.
                 image.Source = Drawing.Convert(bmap);
 
             }
         }
 
+
+        //Two eventhandlers, handling the incoming events from the different sensors connected to the computer.
         private void _sensor_AllFramesReady(object sender, AllFramesReadyEventArgs e)
         {
             framesready(sender, e, image, _sensor);
@@ -238,6 +289,8 @@ namespace KinectSetupDev
         {
             framesready(sender, e, Sensor2, _sensor2);
         }
+
+        //Managing closing events. 
 
         void StopKinect(KinectSensor sensor)
         {
@@ -251,10 +304,19 @@ namespace KinectSetupDev
             }
         }
         
+        //Stops both of the sensors and the dispatchertimer aswell as the stopwatch when the window is closing. 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             StopKinect(_sensor);
-            sw.Stop();
+            if (numberOfConnectedSensors > 1)
+            {
+                StopKinect(_sensor2);
+            }
+            if (sw.IsRunning && dt.IsEnabled)
+            {
+                sw.Stop();
+                dt.Stop();
+            }   
         }
     }   
 }
