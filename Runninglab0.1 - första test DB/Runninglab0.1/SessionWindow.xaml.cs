@@ -72,8 +72,17 @@ namespace Runninglab0._1
             }
         }
 
+        private void back_button_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 mainwin = new Window1();
+            mainwin.Show();
+            this.Close();
+        }
+
         private void end_button_Click(object sender, RoutedEventArgs e)
         {
+            back_button.Visibility = Visibility.Hidden;
+
             if (end_button.Content.ToString() == "START")
             {
                 SqlConnection con = new SqlConnection();
@@ -85,17 +94,17 @@ namespace Runninglab0._1
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dtt = new DataTable();
                 da.Fill(dtt);
-                int id = 0;
+               // int id = 0;
 
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        id = Convert.ToInt32(reader["ID"].ToString());
+                        globalid.idnumber = Convert.ToInt32(reader["ID"].ToString());
                     }
                 }
 
-                SqlCommand cmd1 = new SqlCommand("Insert into SessionTable (ID) values ('" + id + "')", con);
+                SqlCommand cmd1 = new SqlCommand("Insert into SessionTable (ID) values ('" + globalid.idnumber + "')", con);
                 cmd1.CommandType = CommandType.Text;
                 cmd1.ExecuteNonQuery();
 
@@ -125,13 +134,26 @@ namespace Runninglab0._1
 
                 sw.Stop();
                 dt.Stop();
-                addAndCreateDataPoints(); // insert pulse and time to the global list plotlist
+               // -----> KOMMENTERAT BORT addAndCreateDataPoints(); // insert pulse and time to the global list plotlist
 
-                // Lägger till så man kommer till plotfönster
+                // LÄGGER TILL MASSA HÄR <--------------------------------------------------------------
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = "Data Source=laptop-s8mlbdg5;Initial Catalog=ExampleDatabase;Integrated Security=True";
+                // con.ConnectionString = @"Data Source=PER-SPELDATOR\MSSMLBIZ;Initial Catalog=Running Lab;Integrated Security=True"
+                con.Open();
 
-                plowin = new Plotwindow();
-                plowin.Show();
-                // SLUT HÄR
+                SqlCommand cmd2 = new SqlCommand("Select COUNT (SessionID) from SessionTable", con); // RÄKNAR, men blir tyvärr fel
+                Int32 count = (Int32)cmd2.ExecuteScalar(); // count elements in database with specific ID 
+                 globalid.idcount = (Int32)cmd2.ExecuteScalar();
+
+                string allPulsesString = string.Join(",", allPulses.ToArray());
+                string timePulsesString = string.Join(",", timePulses.ToArray()); // ~
+              SqlCommand cmd = new SqlCommand("update SessionTable set Pulsevalue = '" + allPulsesString + "', Pulsetime = '" + timePulsesString + "' where SessionID = '" + globalid.idcount + "' ", con);
+
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+
+                con.Close();
 
             }
         }
@@ -147,7 +169,7 @@ namespace Runninglab0._1
 
                 // Call the MATLAB function myfunc
 
-                matlab.Feval("ecgtoheartrate", 1, out result, "5", 15, "testdata.dat");
+                matlab.Feval("ecgtoheartrate", 1, out result, "7", 15, "testdata.dat");
 
                 // Display result 
                 object[] res = result as object[];
@@ -166,19 +188,12 @@ namespace Runninglab0._1
                 timePulses.Add(Convert.ToInt32(sw.ElapsedMilliseconds)/1000); // lista med tid
             }
         }
-        void addAndCreateDataPoints() // behöver två listor som inargument sen 
-        {
-            for (int i = 0; i < allPulses.Count; i++)
-            {
-                globalid.plotlist.Add(new DataPoint(timePulses[i], allPulses[i]));
-             //  plowin.InvalidateVisual();  // refreshing the window
-
-            }
-        }
 
         private void username_box_Loaded(object sender, RoutedEventArgs e)
         {
             username_box.Text = globalid.idname;
         }
+
+     
     }
 }

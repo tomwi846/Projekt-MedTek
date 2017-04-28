@@ -11,6 +11,7 @@
         <TextBox x:Name="username_box" HorizontalAlignment="Left" Height="23" Margin="29,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Loaded="username_box_Loaded" FontSize="18" BorderThickness="0" IsReadOnly="True" FontStyle="Italic" Text="user name"/>
         <TextBox x:Name="clockTextbox" HorizontalAlignment="Left" Height="88" Margin="149,155,0,0" TextWrapping="Wrap" Text="TEST" VerticalAlignment="Top" Width="233" SpellCheck.IsEnabled="True"/>
         <Label x:Name="pulseLabel" Content="Label" HorizontalAlignment="Left" Margin="219,345,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="back_button" Content="Back" HorizontalAlignment="Left" Margin="728,487,0,0" VerticalAlignment="Top" Width="75" Click="back_button_Click"/>
 
     </Grid>
 </Window>

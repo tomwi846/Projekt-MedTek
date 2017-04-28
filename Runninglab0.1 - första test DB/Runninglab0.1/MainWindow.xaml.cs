@@ -38,8 +38,10 @@ namespace Runninglab0._1
             public static string idlength;
             public static string idgender;
             public static List<DataPoint> plotlist=new List<DataPoint>();  // LAGT TILL
+            public static int idnumber; // Lagt till
+            public static Int32 idcount;  // lagt till
         }
-
+        
 
         private void button_Click(object sender, RoutedEventArgs e)
         {

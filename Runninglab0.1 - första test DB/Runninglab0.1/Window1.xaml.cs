@@ -58,5 +58,10 @@ namespace Runninglab0._1
         {
             username_box.Text = globalid.idname;
         }
+
+        private void about_button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Running Lab is a training application designed to help you improve your running tequnice. Click Start session when you want to start your training sessions. You can evulaute previous sessions by clicking Prevoius results. If you want to edit your personal information, click Edit Personal Information. Good luck!");
+        }
     }
 }
