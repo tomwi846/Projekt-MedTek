@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OxyPlot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,9 @@ namespace Runninglab0._1 // Create a class to save datapoints
     using System.Collections.Generic;
     using OxyPlot;
     using static MainWindow;
+    using OxyPlot.Axes;
+    using System.Reflection;
+    using System.Windows.Media.Media3D;
 
     public class MainViewModel
     {
@@ -22,18 +26,15 @@ namespace Runninglab0._1 // Create a class to save datapoints
               {
                 this.Points.Add(globalid.plotlist[i]);
               }
-       
 
         }
 
-    /*    public void AddDataPoint(int t, int p)
-        {
-            Points.Add(new DataPoint(t, p));
-        } */
 
         public string Title { get; private set; }
 
         public IList<DataPoint> Points { get; private set; }
+
     }
 }
+
 

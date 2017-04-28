@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OxyPlot;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -32,8 +33,15 @@ namespace Runninglab0._1
             username_box.Text = globalid.idname;
         }
 
-        List<string> pulslist = new List<string>();
-       // private object username_input;
+      //  List<List<int>> pulslist = new List<List<int>>();
+      //  List<List<int>> pulslisttime = new List<List<int>>(); // LISTA TID
+
+            List<string> pulslist = new List<string>();
+        List<string> pulslisttime = new List<string>();
+        List<int> pulslistint = new List<int>();
+        List<int> pulslisttimeint = new List<int>(); 
+
+        // private object username_input;
 
         private void SessionBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -56,19 +64,27 @@ namespace Runninglab0._1
                 }
             }
 
-            SqlCommand cmd1 = new SqlCommand("Select Pulse from SessionTable where ID = '" + id + "'", con);
-
-            
+            SqlCommand cmd1 = new SqlCommand("Select Pulsevalue from SessionTable where ID = '" + id + "' ", con);  //HÄMTAR PULS OCH LÄGGER I PULSLIST stor  + id + förut
             
             using (SqlDataReader reader = cmd1.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    pulslist.Add(reader.GetString(0));
+                        pulslist.Add(reader["Pulsevalue"].ToString());
                 }
             }
 
-            SqlCommand cmd2 = new SqlCommand("Select COUNT (ID) from SessionTable where ID = '" + id + "'", con);
+            SqlCommand cmd3 = new SqlCommand("Select Pulsetime from SessionTable where ID = '" + id + "' ", con);  //HÄMTAR PULS OCH LÄGGER I PULSLIST STOD id förit
+
+            using (SqlDataReader reader = cmd3.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    pulslisttime.Add(reader["Pulsetime"].ToString());
+                }
+            }
+
+            SqlCommand cmd2 = new SqlCommand("Select COUNT (ID) from SessionTable where ID = '" + id + "'  ", con);
             Int32 count = (Int32) cmd2.ExecuteScalar(); // count elements in database with specific ID 
             if (count == 0)
             {
@@ -101,12 +117,29 @@ namespace Runninglab0._1
             else
             {
                 if (SectionBox.Text == "Pulse")
-                {
-                    
+                {   
                     int sessionnumber = Convert.ToInt32(SessionBox.Text);
                     {
-                        string puls = pulslist[sessionnumber - 1].ToString();
-                        MessageBox.Show(puls);
+                        //convert string to list of int
+                        string puls = pulslist[sessionnumber - 1];
+                        pulslistint = puls.Split(',').Select(int.Parse).ToList();
+
+                        string time = pulslisttime[sessionnumber - 1];
+                        pulslisttimeint = time.Split(',').Select(int.Parse).ToList();
+
+                        // creates datapoint and opens plotwindow
+                        addAndCreateDataPoints(); 
+                       Plotwindow plowin = new Plotwindow(); 
+                       plowin.Show(); 
+                      globalid.plotlist.Clear();
+
+                        string minvalue = pulslistint.Min().ToString();
+                        string maxvalue = pulslistint.Max().ToString();
+                        string meanvalue = pulslistint.Average().ToString();
+                        mean_label.Content=("Mean value: " + meanvalue + " BPM");
+                        min_label.Content = ("Min value: " + minvalue + " BPM");
+                        max_label.Content = ("Max value: " + maxvalue + " BPM");
+
                     }
                 }
             }
@@ -123,5 +156,17 @@ namespace Runninglab0._1
             mainwin.Show();
             this.Close();
         }
+
+        void addAndCreateDataPoints() // behöver två listor som inargument sen 
+        {
+            for (int i = 0; i < pulslistint.Count; i++)
+            {
+           //     globalid.plotlist.Add(new DataPoint(1, 2));
+               globalid.plotlist.Add(new DataPoint(pulslisttimeint[i], pulslistint[i]));
+                //  plowin.InvalidateVisual();  // refreshing the window
+            }
+        }
+
+      
     }
 }
