@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Kinect;
 using Microsoft.Kinect.Toolkit;
 using System.Drawing;
+using System.Timers;
 //using Microsoft.Samples.Kinect.WpfViewers;
 
 
@@ -23,7 +24,8 @@ namespace KinectSetupDev
 {
     class Drawing
     {
-        //create brush to draw inferred joints
+        //-----------creation of important stuff--------------------------------------
+        //--------create brush to draw inferred joints
         static private readonly System.Drawing.Pen inferredJointPen = new System.Drawing.Pen(System.Drawing.Color.Blue, 6);
 
         //Create brush to draw tracked joints
@@ -37,6 +39,7 @@ namespace KinectSetupDev
 
         //Create a pen for drawing red lines when error occurs in the running. 
         static private readonly System.Drawing.Pen errorBonePen = new System.Drawing.Pen(System.Drawing.Color.Red, 6);
+        //--------------------end of creation------------------------------------------
 
         //Function for rendering a bone between two tracked joints. Depending on both joints tracked or inferred it will draw
         //the bone with different parameters. 
@@ -53,7 +56,7 @@ namespace KinectSetupDev
 
             if (j1.TrackingState == JointTrackingState.Inferred || j2.TrackingState == JointTrackingState.Inferred)
             {
-                g.DrawLine(inferredBonePen, p1, p2); //draw thin line if either joint is inferred
+                g.DrawLine(trackedBonePen, p1, p2); //draw thin line if either joint is inferred
             }
 
             if (j1.TrackingState == JointTrackingState.Tracked && j2.TrackingState == JointTrackingState.Tracked)
@@ -78,6 +81,31 @@ namespace KinectSetupDev
             }
         }
 
+        static private void DrawBoneSideways(Joint j1, Joint j2, Skeleton S, Graphics g, KinectSensor sensor)
+        {
+            if (j1.TrackingState == JointTrackingState.NotTracked || j2.TrackingState == JointTrackingState.NotTracked)
+            {
+                return; //nothing to draw
+            }
+
+            System.Drawing.Point p1 = GetJoint(j1, S, sensor);
+            System.Drawing.Point p2 = GetJoint(j2, S, sensor);
+
+            if (j1.TrackingState == JointTrackingState.Inferred || j2.TrackingState == JointTrackingState.Inferred)
+            {
+                g.DrawLine(trackedBonePen, p1, p2); //draw thin line if either joint is inferred
+            }
+
+            if (j1.TrackingState == JointTrackingState.Tracked && j2.TrackingState == JointTrackingState.Tracked)
+            {
+                g.DrawLine(trackedBonePen, p1, p2); //draw thick line if both joints are tracked
+            }
+        }
+
+
+
+        //---------Helpfunctions for checking rotation in every space direction. This goes for jointpositions----------------------
+        //---------especially for hip-rotation. -----------------------------------------
         static private bool correct_twist_x(Joint joint1, Joint joint2, int limit)
         {
            double distance = 100 * System.Math.Round(System.Math.Abs(joint1.Position.X - joint2.Position.X), 3);
@@ -98,7 +126,11 @@ namespace KinectSetupDev
 
             return distance < limit;
         }
+        //-------------------------------------------------------------------------------------------------------------------
 
+
+        //-------------------------Functions for calculating important angles while running. Jointpositions will -------------------
+        //-------------------------create vectors between whom the angle is calculated----------------------
         static public double calculateAngle(Joint joint1, Joint joint2, Joint joint3)
         {
 
@@ -113,10 +145,20 @@ namespace KinectSetupDev
         static public double calculateAngleBack(JointCollection jointcollection)
         {
             Vector Vector1 = new Vector(jointcollection[JointType.HipCenter].Position.X, jointcollection[JointType.HipCenter].Position.Y);
-            Vector Vector2 = new Vector(jointcollection[JointType.HipCenter].Position.X, jointcollection[JointType.HipCenter].Position.Y + 5);
+            Vector Vector2 = new Vector(jointcollection[JointType.HipCenter].Position.X, jointcollection[JointType.HipCenter].Position.Y + 0.5);
             Vector Vector3 = new Vector(jointcollection[JointType.ShoulderCenter].Position.X, jointcollection[JointType.ShoulderCenter].Position.Y);
 
             return anglebetween2Dvectors(Vector3 - Vector1, Vector2 - Vector1);
+        }
+
+        static public double calculateAngleFoot(JointCollection jointcollection)
+        {
+            Vector Vector1 = new Vector(jointcollection[JointType.AnkleLeft].Position.X, jointcollection[JointType.AnkleLeft].Position.Z);
+            Vector Vector2 = new Vector(jointcollection[JointType.AnkleLeft].Position.X, jointcollection[JointType.AnkleLeft].Position.Z - 0.5);
+            Vector Vector3 = new Vector(jointcollection[JointType.FootLeft].Position.X, jointcollection[JointType.FootLeft].Position.Z);
+
+            return anglebetween2Dvectors(Vector3 - Vector1, Vector2 - Vector1);
+
         }
 
 
@@ -138,16 +180,13 @@ namespace KinectSetupDev
 
             return (double)Math.Acos(dotproduct) / Math.PI * 180;
         }
+        //---------------------------------------------------------------------------------
 
+        //-----------------For data processing, functions for writing data to a file for further processing in matlab--------
+        //-----------------writes both positions, times, angles necessary for processing. ------------------------------------
         static public void WritePositionToFile(Joint joint, List<string> positions, List<string> timestring)
         {
-            positions.Add((System.Math.Round(joint.Position.X, 3) * 1000).ToString());
-            //System.IO.FileStream output = new System.IO.FileStream(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Position.txt", System.IO.FileMode.Open);
-            //System.IO.BinaryWriter BWPos = new System.IO.BinaryWriter(output);
-            //for (int i = 0; i <= positions.Count; i++)
-            //{
-            //    BWPos.Write(positions[i]);
-            //}
+            positions.Add((System.Math.Round(joint.Position.Z, 3) * 1000).ToString());
             System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Position.txt", positions);
             System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Times.txt", timestring);
         }
@@ -165,7 +204,9 @@ namespace KinectSetupDev
                 System.IO.File.WriteAllLines(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Heelkick.txt", heelkick);
             }
         }
+        //-------------------------------------------------------------------------------------------------------------------------
 
+        //-----------------Function for creating and returning a point (imagepoint) from skeletonpoint.-------------------
         static private System.Drawing.Point GetJoint(Joint j, Skeleton S, KinectSensor sensor)
         {
             SkeletonPoint Sloc = j.Position;
@@ -173,8 +214,12 @@ namespace KinectSetupDev
                            ColorImageFormat.RgbResolution640x480Fps30);
             return new System.Drawing.Point(Cloc.X, Cloc.Y);
         }
+        //-----------------------------------------------------------------------------------
 
 
+        //-----------------------function that collects all the rendering of the skeleton on the frame-----------
+        //-----------------------Gets jointcollection from the sensor-data and draws the bone using------------
+        //-----------------------the function drawbone, earlier defined.----------------------------------
         static public void DrawTrackedSkeletonJoint(JointCollection jointCollection, Skeleton S, Graphics g, KinectSensor sensor)
         {
             //Draw line through the middle of the body
@@ -226,25 +271,30 @@ namespace KinectSetupDev
             //}
         }
 
+        //--------------------Own function for rendering the skeleton from the sideway sensor,---------------------
+        //--------------------this becuase not all the bones should be rendered in the sideway frame---------------
+        //--------------------so there are no interference in the image while running.------------------------------
         static public void DrawSkeletonSidewaySensor(JointCollection jointCollection, Skeleton S, Graphics g, KinectSensor sensor)
         {
             //Draw line through the middle of the body
-            DrawBone(jointCollection[JointType.Head], jointCollection[JointType.ShoulderCenter], S, g, sensor);
-            DrawBone(jointCollection[JointType.ShoulderCenter], jointCollection[JointType.Spine], S, g, sensor);
-            DrawBone(jointCollection[JointType.Spine], jointCollection[JointType.HipCenter], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.Head], jointCollection[JointType.ShoulderCenter], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.ShoulderCenter], jointCollection[JointType.Spine], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.Spine], jointCollection[JointType.HipCenter], S, g, sensor);
 
             //Draw left leg
-            DrawBone(jointCollection[JointType.HipCenter], jointCollection[JointType.KneeLeft], S, g, sensor);
-            DrawBone(jointCollection[JointType.KneeLeft], jointCollection[JointType.AnkleLeft], S, g, sensor);
-            DrawBone(jointCollection[JointType.AnkleLeft], jointCollection[JointType.FootLeft], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.HipCenter], jointCollection[JointType.KneeLeft], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.KneeLeft], jointCollection[JointType.AnkleLeft], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.AnkleLeft], jointCollection[JointType.FootLeft], S, g, sensor);
 
             //Draw right leg
-            DrawBone(jointCollection[JointType.HipCenter], jointCollection[JointType.KneeRight], S, g, sensor);
-            DrawBone(jointCollection[JointType.KneeRight], jointCollection[JointType.AnkleRight], S, g, sensor);
-            DrawBone(jointCollection[JointType.AnkleRight], jointCollection[JointType.FootRight], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.HipCenter], jointCollection[JointType.KneeRight], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.KneeRight], jointCollection[JointType.AnkleRight], S, g, sensor);
+            DrawBoneSideways(jointCollection[JointType.AnkleRight], jointCollection[JointType.FootRight], S, g, sensor);
         }
 
-
+        //----------------Create a bitmap out of the image retrieved from the sensor------------
+        //----------------this for processing the data stored in the image and for--------------
+        //----------------enable drawing in that sheet of data---------------------------------
         static public Bitmap ImageToBitmap(ColorImageFrame colorImage)
         {
             byte[] pixeldata =
@@ -271,6 +321,7 @@ namespace KinectSetupDev
             return bmap;
         }
 
+        //---------------------Convert a bitmap to a bitmapsource.----------------
         static public BitmapSource Convert(System.Drawing.Bitmap bitmap)
         {
             var bitmapData = bitmap.LockBits(
@@ -285,9 +336,23 @@ namespace KinectSetupDev
             return bitmapSource;
         }
 
+        //-------------------Is the left foot in front of the right?---------------
         static public bool LeftInfrontofRight(Joint leftJoint, Joint rightJoint)
         {
             return leftJoint.Position.X > rightJoint.Position.X; 
+        }
+
+        //------------------Deciding the mean of undecided number of values.-----------------
+        public static double Mean(List<double> Values)
+        {
+            if (Values.Count == 0)
+                return 0.0;
+            double ReturnValue = 0.0;
+            for (int x = 0; x < Values.Count; ++x)
+            {
+                ReturnValue += Values[x];
+            }
+            return ReturnValue / (double)Values.Count;
         }
     }
 }
