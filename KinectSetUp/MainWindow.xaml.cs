@@ -19,6 +19,7 @@ using System.Windows.Threading;
 using Microsoft.Kinect;
 using Microsoft.Kinect.Toolkit;
 using System.Drawing;
+using System.Timers;
 //using Microsoft.Samples.Kinect.WpfViewers;
 
 
@@ -33,10 +34,13 @@ namespace KinectSetupDev
     {
         // Creating important types and variables for future use. 
 
-        DispatcherTimer dt = new DispatcherTimer(); //
-        Stopwatch sw = new Stopwatch(); //stopwatch for handling of time
-        string currentTime = string.Empty; //string for storing the current time in stringformat
+        DispatcherTimer dt_visualized = new DispatcherTimer(); //
+        Stopwatch sw_visualized = new Stopwatch(); //stopwatch for handling of time
+        string currentTime_visualized = string.Empty; //string for storing the current time in stringformat
         long MilliSeconds = 0; //int for how long it has been running (in milliseconds)
+
+        // A timer for running a function every few seconds instead of all the timer
+        private System.Timers.Timer interval_timer = new System.Timers.Timer();
 
         //Expecting to connected sensor so we create to variables for handling
         //of sensor events. 
@@ -53,6 +57,14 @@ namespace KinectSetupDev
 
         List<string> heelkick = new List<string>();
 
+        List<double> backangle = new List<double>();
+
+        List<double> footangle = new List<double>();
+
+        double angle_back;
+
+        double angle_foot;
+
         //-------------------End of important lists----------------------------
 
         //How many connected sensors.
@@ -61,10 +73,12 @@ namespace KinectSetupDev
         public MainWindow()
         {
             InitializeComponent();
-            dt.Tick += new EventHandler(dt_Tick);
-            dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            dt_visualized.Tick += new EventHandler(dt_visualized_Tick);
+            dt_visualized.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            InitTimer();
         }
-
+        
+        //---------------Load the window when program started. Enable streams for the connected sensors.--------------------
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (numberOfConnectedSensors > 0)
@@ -112,71 +126,38 @@ namespace KinectSetupDev
             else
             {
                 Close(); //If no sensor connected Application i closed. Following up with a messagebox stating what's wrong. 
-                MessageBox.Show("No kinect sensor kinected");
-                //Add good exception here, e.g. error message box saying no kinect connected
+                MessageBox.Show("No kinect sensor connected");
             }
 
             //Start both dispatchertimer and stopwatch.
-            sw.Start();
-            dt.Start();
-
-
-            //if (sw.IsRunning)
-            //{
-            //    TimeSpan ts = sw.Elapsed;
-            //    currentTime = String.Format("{0:00}:{1:00}:{2:00}",
-            //    ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-            //    clockTextbox.Text = "Time: " + currentTime;
-            //    MilliSeconds = sw.ElapsedMilliseconds;
-            //}
+            //Det här ska göras vid startknapp
+            sw_visualized.Start();
+            dt_visualized.Start();
         }
 
-        void dt_Tick(object sender, EventArgs e)
+        public void InitTimer()
         {
-            if (sw.IsRunning)
+            interval_timer.Interval = 5000; // in miliseconds
+            interval_timer.Elapsed += new ElapsedEventHandler(_interval_timer_Elapsed);
+            interval_timer.Enabled = true;
+            interval_timer.Start();
+        }
+
+        public void _interval_timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            backangle.Add(System.Math.Round(angle_back));
+            footangle.Add(System.Math.Round(angle_foot));
+        }
+
+        void dt_visualized_Tick(object sender, EventArgs e)
+        {
+            if (sw_visualized.IsRunning)
             {
-                TimeSpan ts = sw.Elapsed;
-                currentTime = String.Format("{0:00}:{1:00}:{2:00}",
+                TimeSpan ts = sw_visualized.Elapsed;
+                currentTime_visualized = String.Format("{0:00}:{1:00}:{2:00}",
                 ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                clockTextbox.Text = "Time: " + currentTime;
-                MilliSeconds = sw.ElapsedMilliseconds;
-            }
-        }
-
-        private void startbutton_click(object sender, RoutedEventArgs e)
-        {
-            sw.Start();
-            dt.Start();
-        }
-
-        private void stopbutton_click(object sender, RoutedEventArgs e)
-        {
-            if (sw.IsRunning)
-            {
-                sw.Stop();
-                List<int> k = kneeup.Select(int.Parse).ToList();
-                List<int> h = heelkick.Select(int.Parse).ToList();
-                int[] karray = k.ToArray();
-                int[] harray = h.ToArray();
-
-                double ktot = 0;
-                double htot = 0;
-
-                foreach (int s in karray)
-                {
-                    ktot += s;
-                }
-
-                foreach (int q in harray)
-                {
-                    htot += q;
-                }
-
-                double kaverage = ktot / karray.Length;
-                double haverage = htot / harray.Length;
-
-                textBox.Text = kaverage.ToString() + " " + haverage.ToString();
-
+                clockTextbox.Text = "Time: " + currentTime_visualized;
+                MilliSeconds = sw_visualized.ElapsedMilliseconds;
             }
         }
 
@@ -192,6 +173,7 @@ namespace KinectSetupDev
                     return;
                 }
 
+                // Important rendering objects. 
                 Bitmap bmap = Drawing.ImageToBitmap(colorFrame);
 
                 Graphics g = Graphics.FromImage(bmap);
@@ -204,12 +186,16 @@ namespace KinectSetupDev
                     return;
                 }
 
+                //Create skeleton-array for skeleton-data-storing
                 Skeleton[] Skeletons = new Skeleton[SFrame.SkeletonArrayLength];
+
+                //-------set important values for the slider-control. And set values that are good for----
+                // back -angle while running.
                 slider.Maximum = 80;
                 slider.Minimum = -20;
                 int sliderValue = (int)slider.Value;
 
-                if (sliderValue >= 0 && sliderValue <= 20)
+                if (sliderValue >= -5 && sliderValue <= 15)
                 {
                     System.Windows.Media.Color color = new System.Windows.Media.Color();
                     color = System.Windows.Media.Color.FromRgb(0, 255, 0);
@@ -221,7 +207,7 @@ namespace KinectSetupDev
                     color = System.Windows.Media.Color.FromRgb(255, 0, 0);
                     slider.Background = new System.Windows.Media.SolidColorBrush(color);
                 }
-
+                //--------------------------------------------------------------------------------------
 
                 SFrame.CopySkeletonDataTo(Skeletons);
                 foreach (Skeleton S in Skeletons)
@@ -232,43 +218,33 @@ namespace KinectSetupDev
                         {
                             Drawing.DrawTrackedSkeletonJoint(S.Joints, S, g, sensor);
 
-                            if ((0.1f < S.Joints[JointType.FootLeft].Position.X || S.Joints[JointType.FootLeft].Position.X < -0.15f))
+                            if ((0f <= S.Joints[JointType.FootLeft].Position.Z || S.Joints[JointType.FootLeft].Position.Z < 0f))
                             {
                                 time.Add(MilliSeconds.ToString());
                                 Drawing.WritePositionToFile(S.Joints[JointType.FootLeft], FootPositions, time);
                             }
-                            Drawing.WriteAngleToFile(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft], S.Joints[JointType.AnkleRight], kneeup, heelkick);
+                           // Drawing.WriteAngleToFile(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft], S.Joints[JointType.AnkleRight], kneeup, heelkick);
+                            textBox.Text = Drawing.calculateAngleFoot(S.Joints).ToString();
+
+                            angle_foot = Drawing.calculateAngleFoot(S.Joints);
+
                         }
                         else
                         {
                             Drawing.DrawSkeletonSidewaySensor(S.Joints, S, g, sensor);
-                            slider.Value = Drawing.calculateAngleBack(S.Joints);
-                           // textBox.Text = S.Joints[JointType.FootLeft].Position.X.ToString();
-
-                            if ((0.1f < S.Joints[JointType.FootLeft].Position.X || S.Joints[JointType.FootLeft].Position.X < -0.15f))
+                            try
                             {
-                                time.Add(MilliSeconds.ToString());
-                                Drawing.WritePositionToFile(S.Joints[JointType.FootLeft], FootPositions, time);
+                                slider.Value = Drawing.calculateAngleBack(S.Joints);
+                                angle_back = slider.Value;
                             }
+                            catch (ArgumentException)
+                            {
+                                MessageBox.Show("");
+                            }
+                            
                             Drawing.WriteAngleToFile(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft], S.Joints[JointType.AnkleRight], kneeup, heelkick);
                         }
 
-                        //----------------MASSA TESTER AV OLIKA FUNKTIONER--------------------
-
-                        //textBox.Text = "Angle: " + Drawing.calculateAngle(S.Joints[JointType.HipLeft], S.Joints[JointType.KneeLeft], S.Joints[JointType.ShoulderLeft]).ToString();
-                        //textBox.Text = "Foot apart: " + (100*(System.Math.Round(System.Math.Abs(S.Joints[JointType.HipLeft].Position.Z - S.Joints[JointType.HipRight].Position.Z), 3))).ToString();
-                        //if (Drawing.LeftInfrontofRight(S.Joints[JointType.FootLeft], S.Joints[JointType.FootRight]))
-                        //{
-                        //    textBox.Text = "True";
-                        //}
-                        //else
-                        //{
-                        //    textBox.Text = "False";
-                        //}
-                        
-                        //textBox.Text ="Knee angle: " + Drawing.calculateAngle(S.Joints[JointType.KneeLeft], S.Joints[JointType.AnkleLeft], S.Joints[JointType.HipLeft]).ToString();
-
-                        // ------------------------SLUT PÅ TEST--------------------------------
                     }
                 }
 
@@ -312,11 +288,33 @@ namespace KinectSetupDev
             {
                 StopKinect(_sensor2);
             }
-            if (sw.IsRunning && dt.IsEnabled)
+            if (sw_visualized.IsRunning && dt_visualized.IsEnabled)
             {
-                sw.Stop();
-                dt.Stop();
-            }   
+                sw_visualized.Stop();
+                dt_visualized.Stop();
+            }
+            double mean_angle_back = Drawing.Mean(backangle);
+            System.IO.File.WriteAllText(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Backangle.txt", backangle.ToString());
+
+            double mean_angle_foot = Drawing.Mean(footangle);
+            System.IO.File.WriteAllText(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Footangle.txt", mean_angle_foot.ToString());
         }
+
+
+        //------------------- Button click for ending of an ongoing session.---------------------
+        //detta ska föras in i databasen sen
+        //värden ifrån matlab, hastighet knälyft och hälkick ska också föras in från matlab till databasen
+        //Skulle kunna göra en graf från lista med fotvinklar
+
+        private void end_session_click(object sender, RoutedEventArgs e)
+        {
+            double mean_angle_back = Drawing.Mean(backangle);
+            System.IO.File.WriteAllText(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Backangle.txt", mean_angle_back.ToString());
+
+            double mean_angle_foot = Drawing.Mean(footangle);
+            System.IO.File.WriteAllText(@"C:\Users\tomas\Documents\GitHub\Projekt-MedTek\KinectSetUp\Footangle.txt", mean_angle_foot.ToString());
+
+            this.Close();
+        } 
     }   
 }
